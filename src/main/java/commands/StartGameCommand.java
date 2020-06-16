@@ -3,18 +3,22 @@ package commands;
 import MessageHandling.MessageHandler;
 import MessageHandling.Utility;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Optional;
 
+/**
+ * A command that will initiate a game by setting the channel it is to be played in.
+ */
 public class StartGameCommand extends AbstractCommand {
 
     private static Command startGameCommand = new StartGameCommand();
 
-    public static Command getInstance(){
+    /**
+     * @return the singleton instance of the StartGameCommand
+     */
+    static Command getInstance(){
         return startGameCommand;
     }
 

@@ -1,14 +1,18 @@
 package commands;
 
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+/**
+ * A command that will cause a direction press on the GamePad.
+ */
 public class DirectionCommand extends AbstractCommand {
 
     private static Command directionCommand = new DirectionCommand();
 
-    public static Command getInstance() {
+    /**
+     * @return the singleton instance of the DirectionCommand
+     */
+    static Command getInstance() {
         return directionCommand;
     }
 

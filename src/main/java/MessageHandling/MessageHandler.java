@@ -6,11 +6,9 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-
-import static commands.CType.STARTGAME;
+import static commands.CType.*;
 
 public class MessageHandler extends ListenerAdapter {
-
 
     private JDA jda;
 
@@ -20,6 +18,10 @@ public class MessageHandler extends ListenerAdapter {
 
     private static String gameChannelId;
 
+    /**
+     * Sets the channel id which will be used for group gaming on discord.
+     * @param id the id of the channel as a String.
+     */
     public static void setGameChannel(String id){
         gameChannelId = id;
     }
@@ -35,7 +37,7 @@ public class MessageHandler extends ListenerAdapter {
         String text = event.getMessage().getContentDisplay();
 
         if(text.toLowerCase().startsWith(".startgame")){
-            CommandFactory.getCommandByType(STARTGAME).run(event);
+            CommandFactory.getCommandByType(START_GAME).run(event);
         }
     }
 
