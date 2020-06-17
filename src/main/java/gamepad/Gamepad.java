@@ -32,10 +32,27 @@ public class Gamepad{
 
     public static void pressKey(String key) {
 
-        KeyStroke ks = KeyStroke.getKeyStroke(key);
-        int keyCode = ks.getKeyCode();
-        robot.keyPress(keyCode);
-        robot.keyRelease(keyCode);
+        String[] keyPresses = key.toUpperCase().split("\\s");
+        int[] keyCodes = new int[keyPresses.length];
+
+
+        int curIndex = 0;
+        KeyStroke curKeyStroke;
+        int curKeyCode;
+
+        for(String curKey : keyPresses)
+        {
+            curKeyStroke = KeyStroke.getKeyStroke(curKey);
+            curKeyCode = curKeyStroke.getKeyCode();
+            keyCodes[curIndex] = curKeyCode;
+            robot.keyPress(curKeyCode);
+            curIndex++;
+        }
+
+        for (int keyCode : keyCodes)
+        {
+            robot.keyRelease(keyCode);
+        }
     }
 
 }
