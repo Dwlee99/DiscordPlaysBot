@@ -10,7 +10,6 @@ public class Gamepad{
 
     private static final int DELAY = 1000;
 
-
     private static Robot robot;
     static {
         try {
@@ -35,18 +34,22 @@ public class Gamepad{
         KeyStroke curKeyStroke;
         int curKeyCode;
 
-        for(String curKey : keyPresses)
-        {
+        for(String curKey : keyPresses) {
             curKeyStroke = KeyStroke.getKeyStroke(curKey);
             curKeyCode = curKeyStroke.getKeyCode();
             keyCodes[curIndex] = curKeyCode;
-            robot.keyPress(curKeyCode);
+            try {
+                robot.keyPress(curKeyCode);
+            } catch (IllegalArgumentException ignore) {
+            }
             curIndex++;
         }
 
-        for (int keyCode : keyCodes)
-        {
-            robot.keyRelease(keyCode);
+        for (int keyCode : keyCodes) {
+            try {
+                robot.keyRelease(keyCode);
+            } catch (IllegalArgumentException ignore) {
+            }
         }
 
         robot.delay(DELAY);
