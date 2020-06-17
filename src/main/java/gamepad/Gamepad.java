@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class Gamepad{
 
-    private static final int DELAY = 0;
+    private static final int DELAY = 1000;
 
 
     private static Robot robot;
@@ -20,18 +20,13 @@ public class Gamepad{
         }
     }
 
-
-
-    public static void pressKey(char key) {
-
-        KeyStroke ks = KeyStroke.getKeyStroke(Character.toUpperCase(key), 0);
-        int keyCode = ks.getKeyCode();
-        robot.keyPress(keyCode);
-        robot.keyRelease(keyCode);
-    }
-
-    public static void pressKey(String key) {
-
+    /**
+     * Presses the keys in the string separated by white space. For example, "shift b c" will press, shift, b, then c
+     * and the release shift, b, then c. After pressing and releasing the keys, the robot will wait DELAY before
+     * accepting new key presses.
+     * @param key a string, delimited by spaces, of the keys to press
+     */
+    public synchronized static void pressKey(String key) {
         String[] keyPresses = key.toUpperCase().split("\\s");
         int[] keyCodes = new int[keyPresses.length];
 
@@ -53,6 +48,8 @@ public class Gamepad{
         {
             robot.keyRelease(keyCode);
         }
+
+        robot.delay(DELAY);
     }
 
 }

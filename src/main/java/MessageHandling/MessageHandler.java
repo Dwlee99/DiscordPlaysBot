@@ -1,6 +1,7 @@
 package MessageHandling;
 
 import commands.*;
+import gamepad.Gamepad;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -9,12 +10,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import static commands.CType.*;
 
 public class MessageHandler extends ListenerAdapter {
-
-    private JDA jda;
-
-    public MessageHandler(JDA jda){
-        this.jda = jda;
-    }
 
     private static String gameChannelId;
 
@@ -28,6 +23,11 @@ public class MessageHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event){
+        if(!event.getAuthor().isBot())
+            new Thread(() -> handleMessage(event)).start();
+    }
+
+    private void handleMessage(MessageReceivedEvent event){
         if(event.getChannel().getId().equals(gameChannelId)){
             handleGameMessage(event);
             return;
@@ -42,7 +42,7 @@ public class MessageHandler extends ListenerAdapter {
     }
 
     private void handleGameMessage(MessageReceivedEvent event) {
-
+        CommandFactory.getCommandByType(QUEUE_PRESS).run(event);
     }
 
 

@@ -6,13 +6,6 @@ package commands;
 public class CommandFactory {
 
     /**
-     * @return the Direction Command
-     */
-    public static Command getDirectionCommand(){
-        return DirectionCommand.getInstance();
-    }
-
-    /**
      * @return the Start Game Command
      */
     public static Command getStartGameCommand(){
@@ -20,13 +13,18 @@ public class CommandFactory {
     }
 
     /**
+     * @return the Queue Press Command
+     */
+    public static Command getQueuePressCommand() { return QueuePressCommand.getInstance(); }
+
+    /**
      * @param cType the type of command to be found
      * @return the command associated with cType
      */
     public static Command getCommandByType(CType cType) {
         switch(cType) {
-            case DIRECTION:
-                return getDirectionCommand();
+            case QUEUE_PRESS:
+                return getQueuePressCommand();
             case START_GAME:
                 return getStartGameCommand();
         }
