@@ -10,6 +10,17 @@ public class Gamepad{
 
     private static final int DELAY = 1000;
 
+    /**
+     * This variable is used to indicate the necessary time a key must be pressed to allow it to be recognized by
+     * hardware.
+     */
+    private static final int PRESS_WAIT = 20;
+
+    /**
+     * A keycode that does not do anything when pressed.
+     */
+    private static final int DUMMY_CODE = 0;
+
     private static Robot robot;
     static {
         try {
@@ -36,7 +47,13 @@ public class Gamepad{
 
         for(String curKey : keyPresses) {
             curKeyStroke = KeyStroke.getKeyStroke(curKey);
-            curKeyCode = curKeyStroke.getKeyCode();
+
+            if(curKeyStroke != null) {
+                curKeyCode = curKeyStroke.getKeyCode();
+            }
+            else{
+                curKeyCode = DUMMY_CODE;
+            }
             keyCodes[curIndex] = curKeyCode;
             try {
                 robot.keyPress(curKeyCode);
@@ -44,7 +61,11 @@ public class Gamepad{
             }
             curIndex++;
         }
-
+        try {
+            Thread.sleep(PRESS_WAIT);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (int keyCode : keyCodes) {
             try {
                 robot.keyRelease(keyCode);
