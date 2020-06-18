@@ -33,7 +33,7 @@ public class MessageHandler extends ListenerAdapter {
             CommandFactory.getCommandByType(START_GAME).run(event);
         }
         else if(text.toLowerCase().startsWith(".setbinds")){
-
+            CommandFactory.getCommandByType(SET_BINDS).run(event);
         }
         else if(event.getChannel().getId().equals(gameChannelId)){
             handleGameMessage(event);
