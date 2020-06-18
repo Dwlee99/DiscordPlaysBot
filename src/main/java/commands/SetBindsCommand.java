@@ -19,7 +19,7 @@ public class SetBindsCommand extends AbstractCommand {
      */
     private LinkedHashMap<String, String> reactionMap = new LinkedHashMap<>();
 
-    private static final Pattern CUSTOM_EMOJI = Pattern.compile("<:\\w+:\\d+>");
+    private static final Pattern CUSTOM_EMOJI = Pattern.compile(":\\w+:\\d+");
 
     /**
      * @return the singleton instance of the QueuePressCommand
