@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class Gamepad{
 
-    private static final int DELAY = 1000;
+    private static final int DELAY = 0;
 
     /**
      * This variable is used to indicate the necessary time a key must be pressed to allow it to be recognized by
