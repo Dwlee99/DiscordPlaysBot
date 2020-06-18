@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class QueuePressCommand extends AbstractCommand {
 
+    private QueuePressCommand(){}
+
     private static ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<>();
 
     private static final Object lock = new Object();
