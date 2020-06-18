@@ -18,6 +18,11 @@ public class CommandFactory {
     public static Command getQueuePressCommand() { return QueuePressCommand.getInstance(); }
 
     /**
+     * @return the Set Binds Command
+     */
+    public static Command getSetBindsCommand() { return SetBindsCommand.getInstance(); }
+
+    /**
      * @param cType the type of command to be found
      * @return the command associated with cType
      */
@@ -27,6 +32,8 @@ public class CommandFactory {
                 return getQueuePressCommand();
             case START_GAME:
                 return getStartGameCommand();
+            case SET_BINDS:
+                return getSetBindsCommand();
         }
         return null;
     }
