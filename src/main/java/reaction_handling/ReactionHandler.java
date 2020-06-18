@@ -1,21 +1,18 @@
 package reaction_handling;
 
-import commands.CType;
 import commands.CommandFactory;
-import gamepad.Gamepad;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static commands.CType.*;
 
 public class ReactionHandler extends ListenerAdapter {
 
     private static long reactionMessage;
-    private static HashMap<String, String> reactionMap = new HashMap<>();
+    private static LinkedHashMap<String, String> reactionMap = new LinkedHashMap<>();
 
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event){
@@ -25,7 +22,7 @@ public class ReactionHandler extends ListenerAdapter {
         }
     }
 
-    private static final int WAIT_BETWEEN_ACTIONS = 3000;
+    private static final int WAIT_BETWEEN_ACTIONS = 0;
 
     public void handleMessageReaction(MessageReactionAddEvent event) {
         for(String curEmoji : reactionMap.keySet()) {
@@ -50,7 +47,7 @@ public class ReactionHandler extends ListenerAdapter {
         });
         reactionMessage = reactionID;
     }
-    public static void setReactionMap(HashMap<String, String> map) {
+    public static void setReactionMap(LinkedHashMap<String, String> map) {
         reactionMap = map;
     }
 

@@ -1,12 +1,9 @@
 package commands;
 
 import com.vdurmont.emoji.EmojiParser;
-import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import reaction_handling.ReactionHandler;
-
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +17,7 @@ public class SetBindsCommand extends AbstractCommand {
     /**
      * Unicode -> Key press code
      */
-    private HashMap<String, String> reactionMap = new HashMap<>();
+    private LinkedHashMap<String, String> reactionMap = new LinkedHashMap<>();
 
     private static final Pattern CUSTOM_EMOJI = Pattern.compile("<:\\w+:\\d+>");
 
