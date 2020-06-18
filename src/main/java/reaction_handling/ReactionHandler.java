@@ -32,11 +32,11 @@ public class ReactionHandler extends ListenerAdapter {
                     Thread.sleep(WAIT_BETWEEN_ACTIONS);
                 } catch (InterruptedException ignored) {
                 }
-                event.retrieveMessage().queue((message -> {
-                    message.removeReaction(curEmoji, event.getUser()).queue();
-                }));
             }
         }
+        event.retrieveMessage().queue((message -> {
+            message.removeReaction(event.getReactionEmote().getAsReactionCode(), event.getUser()).queue();
+        }));
     }
 
     public static void setReactionMessage(TextChannel channel, long reactionID) {
