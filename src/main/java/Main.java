@@ -1,5 +1,5 @@
-import MessageHandling.MessageHandler;
-import ReactionHandling.ReactionHandler;
+import message_handling.MessageHandler;
+import reaction_handling.ReactionHandler;
 import commands.QueuePressCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
