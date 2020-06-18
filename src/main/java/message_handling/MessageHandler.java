@@ -1,8 +1,6 @@
-package MessageHandling;
+package message_handling;
 
 import commands.*;
-import gamepad.Gamepad;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -28,17 +26,20 @@ public class MessageHandler extends ListenerAdapter {
     }
 
     private void handleMessage(MessageReceivedEvent event){
-        if(event.getChannel().getId().equals(gameChannelId)){
-            handleGameMessage(event);
-            return;
-        }
-
         User user = event.getAuthor();
         String text = event.getMessage().getContentDisplay();
 
         if(text.toLowerCase().startsWith(".startgame")){
             CommandFactory.getCommandByType(START_GAME).run(event);
         }
+        else if(text.toLowerCase().startsWith(".setbinds")){
+
+        }
+        else if(event.getChannel().getId().equals(gameChannelId)){
+            handleGameMessage(event);
+        }
+
+
     }
 
     private void handleGameMessage(MessageReceivedEvent event) {
