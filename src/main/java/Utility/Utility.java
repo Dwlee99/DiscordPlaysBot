@@ -1,4 +1,4 @@
-package MessageHandling;
+package Utility;
 
 import net.dv8tion.jda.api.entities.TextChannel;
 

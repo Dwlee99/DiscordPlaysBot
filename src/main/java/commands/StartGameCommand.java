@@ -1,7 +1,7 @@
 package commands;
 
 import MessageHandling.MessageHandler;
-import MessageHandling.Utility;
+import Utility.Utility;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
