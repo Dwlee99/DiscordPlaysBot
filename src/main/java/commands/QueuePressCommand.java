@@ -56,7 +56,12 @@ public class QueuePressCommand extends AbstractCommand {
 
     @Override
     public void run(MessageReceivedEvent event) {
-        queue.add(event.getMessage().getContentDisplay());
+        run(event.getMessage().getContentDisplay());
+    }
+
+    @Override
+    public void run(String text) {
+        queue.add(text);
         synchronized (lock) {
             lock.notifyAll();
         }

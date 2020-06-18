@@ -1,6 +1,7 @@
 package commands;
 
 import message_handling.MessageHandler;
+import reaction_handling.ReactionHandler;
 import utility.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -38,10 +39,13 @@ public class StartGameCommand extends AbstractCommand {
                     jda.getTextChannelsByName(gameChannelName, true).stream().findFirst();
 
             if(channel.isPresent()){
-                MessageHandler.setGameChannel(channel.get().getId());
+                TextChannel gameChannel = channel.get();
+
+                MessageHandler.setGameChannel(gameChannel.getId());
                 Utility.send( "Game channel successfully set!", curChannel);
 
-                Utility.sendEmbed(constructInstructions(), channel.get());
+                long id = Utility.sendEmbed(constructInstructions(), gameChannel);
+                ReactionHandler.setReactionMessage(gameChannel, id);
 
             }
             else{
@@ -54,9 +58,14 @@ public class StartGameCommand extends AbstractCommand {
         }
     }
 
+    @Override
+    public void run(String text) {
+
+    }
+
     private MessageEmbed constructInstructions(){
         EmbedBuilder eb = new CustomEmbedBuilder();
-        
+
         return eb.build();
 
     }

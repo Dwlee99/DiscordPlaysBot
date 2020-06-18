@@ -11,4 +11,6 @@ public interface Command {
      * @param event the event that will cause the command to run
      */
     void run(MessageReceivedEvent event);
+
+    void run(String text);
 }

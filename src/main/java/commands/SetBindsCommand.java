@@ -3,6 +3,7 @@ package commands;
 import com.vdurmont.emoji.EmojiParser;
 import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import reaction_handling.ReactionHandler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ public class SetBindsCommand extends AbstractCommand {
     }
     @Override
     public void run(MessageReceivedEvent event) {
+        reactionMap.clear();
         String text = event.getMessage().getContentRaw();
         String[] lines = text.split("\n");
         for(String line: lines){
@@ -55,6 +57,11 @@ public class SetBindsCommand extends AbstractCommand {
                 }
             }
         }
+        ReactionHandler.setReactionMap(reactionMap);
+    }
+
+    @Override
+    public void run(String text) {
 
     }
 }
