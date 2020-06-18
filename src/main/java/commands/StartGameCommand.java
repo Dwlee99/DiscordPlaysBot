@@ -1,8 +1,10 @@
 package commands;
 
-import MessageHandling.MessageHandler;
-import Utility.Utility;
+import message_handling.MessageHandler;
+import utility.*;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -12,6 +14,8 @@ import java.util.Optional;
  * A command that will initiate a game by setting the channel it is to be played in.
  */
 public class StartGameCommand extends AbstractCommand {
+
+    private StartGameCommand(){}
 
     private static Command startGameCommand = new StartGameCommand();
 
@@ -36,6 +40,9 @@ public class StartGameCommand extends AbstractCommand {
             if(channel.isPresent()){
                 MessageHandler.setGameChannel(channel.get().getId());
                 Utility.send( "Game channel successfully set!", curChannel);
+
+                Utility.sendEmbed(constructInstructions(), channel.get());
+
             }
             else{
                 Utility.send("Invalid channel name, please try again.", curChannel);
@@ -45,5 +52,12 @@ public class StartGameCommand extends AbstractCommand {
         catch(IndexOutOfBoundsException e){
             Utility.send("No game channel provided. (Ex: ``.startgame example-channel``)", curChannel);
         }
+    }
+
+    private MessageEmbed constructInstructions(){
+        EmbedBuilder eb = new CustomEmbedBuilder();
+        
+        return eb.build();
+
     }
 }
