@@ -1,5 +1,6 @@
-package Utility;
+package utility;
 
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class Utility {
@@ -12,4 +13,9 @@ public class Utility {
     public static void send(String text, TextChannel channel){
         channel.sendMessage(text).queue();
     }
+
+    public static void sendEmbed(MessageEmbed embed, TextChannel channel){
+        channel.sendMessage(embed).queue();
+    }
+
 }
