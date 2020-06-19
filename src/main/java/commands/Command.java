@@ -1,6 +1,7 @@
 package commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 
 /**
  * A command is an action that will be taken based in response to Discord input.
@@ -12,5 +13,5 @@ public interface Command {
      */
     void run(MessageReceivedEvent event);
 
-    void run(String text);
+    void run(GenericMessageReactionEvent event);
 }

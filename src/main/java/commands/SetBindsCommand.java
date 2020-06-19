@@ -2,13 +2,14 @@ package commands;
 
 import com.vdurmont.emoji.EmojiParser;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 import reaction_handling.ReactionHandler;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SetBindsCommand extends AbstractCommand {
+public class SetBindsCommand implements Command {
 
     private SetBindsCommand(){}
 
@@ -54,11 +55,11 @@ public class SetBindsCommand extends AbstractCommand {
                 }
             }
         }
-        ReactionHandler.setReactionMap(reactionMap);
+        QueuePressCommand.setReactionMap(reactionMap);
     }
 
     @Override
-    public void run(String text) {
+    public void run(GenericMessageReactionEvent event) {
 
     }
 }

@@ -2,7 +2,10 @@ package commands;
 
 import gamepad.Gamepad;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 
+import java.util.LinkedHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class QueuePressCommand extends AbstractCommand {
@@ -56,14 +59,33 @@ public class QueuePressCommand extends AbstractCommand {
 
     @Override
     public void run(MessageReceivedEvent event) {
-        run(event.getMessage().getContentDisplay());
-    }
-
-    @Override
-    public void run(String text) {
-        queue.add(text);
+        queue.add(event.getMessage().getContentDisplay());
         synchronized (lock) {
             lock.notifyAll();
         }
     }
+
+    private static LinkedHashMap<String, String> reactionMap = new LinkedHashMap<>();
+
+    @Override
+    void run(MessageReactionAddEvent event) {
+        String curEmoji = event.getReactionEmote().getAsReactionCode();
+        if(reactionMap.containsKey(curEmoji)) {
+            queue.add(reactionMap.get(curEmoji));
+        }
+        event.retrieveMessage().queue((message -> {
+            message.removeReaction(event.getReactionEmote().getAsReactionCode(), event.getUser()).queue();
+        }));
+    }
+
+    static void setReactionMap(LinkedHashMap<String, String> map) {
+        reactionMap = map;
+    }
+
+    static LinkedHashMap<String, String> getReactionMap(){
+        return reactionMap;
+    }
+
+    @Override
+    void run(MessageReactionRemoveEvent event) {}
 }

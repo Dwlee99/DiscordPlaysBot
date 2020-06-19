@@ -1,6 +1,8 @@
 package commands;
 
 import message_handling.MessageHandler;
+import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
+import org.w3c.dom.Text;
 import reaction_handling.ReactionHandler;
 import utility.*;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -14,7 +16,7 @@ import java.util.Optional;
 /**
  * A command that will initiate a game by setting the channel it is to be played in.
  */
-public class StartGameCommand extends AbstractCommand {
+public class StartGameCommand implements Command {
 
     private StartGameCommand(){}
 
@@ -45,7 +47,8 @@ public class StartGameCommand extends AbstractCommand {
                 Utility.send( "Game channel successfully set!", curChannel);
 
                 long id = Utility.sendEmbed(constructInstructions(), gameChannel);
-                ReactionHandler.setReactionMessage(gameChannel, id);
+                ReactionHandler.setReactionMessage(id);
+                addReactions(gameChannel, id);
 
             }
             else{
@@ -59,7 +62,7 @@ public class StartGameCommand extends AbstractCommand {
     }
 
     @Override
-    public void run(String text) {
+    public void run(GenericMessageReactionEvent event) {
 
     }
 
@@ -68,5 +71,13 @@ public class StartGameCommand extends AbstractCommand {
 
         return eb.build();
 
+    }
+
+    private void addReactions(TextChannel channel, long reactionID){
+        channel.retrieveMessageById(reactionID).queue(message -> {
+            for(String key : QueuePressCommand.getReactionMap().keySet()){
+                message.addReaction(key).queue();
+            }
+        });
     }
 }
