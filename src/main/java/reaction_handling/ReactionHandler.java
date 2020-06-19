@@ -25,18 +25,17 @@ public class ReactionHandler extends ListenerAdapter {
     private static final int WAIT_BETWEEN_ACTIONS = 0;
 
     public void handleMessageReaction(MessageReactionAddEvent event) {
-        for(String curEmoji : reactionMap.keySet()) {
-            if(event.getReactionEmote().getAsReactionCode().equals(curEmoji)) {
-                CommandFactory.getCommandByType(QUEUE_PRESS).run(reactionMap.get(curEmoji));
-                try {
-                    Thread.sleep(WAIT_BETWEEN_ACTIONS);
-                } catch (InterruptedException ignored) {
-                }
-                event.retrieveMessage().queue((message -> {
-                    message.removeReaction(curEmoji, event.getUser()).queue();
-                }));
+        String curEmoji = event.getReactionEmote().getAsReactionCode();
+        if(reactionMap.containsKey(curEmoji)) {
+            CommandFactory.getCommandByType(QUEUE_PRESS).run(reactionMap.get(curEmoji));
+            try {
+                Thread.sleep(WAIT_BETWEEN_ACTIONS);
+            } catch (InterruptedException ignored) {
             }
         }
+        event.retrieveMessage().queue((message -> {
+            message.removeReaction(event.getReactionEmote().getAsReactionCode(), event.getUser()).queue();
+        }));
     }
 
     public static void setReactionMessage(TextChannel channel, long reactionID) {
