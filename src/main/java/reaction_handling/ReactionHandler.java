@@ -9,8 +9,8 @@ import static commands.CType.*;
 
 public class ReactionHandler extends ListenerAdapter {
 
-    private static long reactionMessage;
-
+    private static long controllerMessageID;
+    private static long governmentMessageID;
 
     @Override
     public void onGenericMessageReaction(GenericMessageReactionEvent event){
@@ -21,14 +21,22 @@ public class ReactionHandler extends ListenerAdapter {
     }
 
     public void handleMessageReaction(GenericMessageReactionEvent event) {
-        if(event.getMessageIdLong() == reactionMessage) {
+        if(event.getMessageIdLong() == controllerMessageID) {
             CommandFactory.getCommandByType(QUEUE_PRESS).run(event);
+        }
+        if(event.getMessageIdLong() == governmentMessageID) {
+//            CommandFactory.getCommandByType(QUEUE_PRESS).run(event);
         }
     }
 
-    public static void setReactionMessage(long reactionID) {
-        reactionMessage = reactionID;
+    public static void setControllerMessageID(long messageID) {
+        controllerMessageID = messageID;
     }
+
+    public static void setGovernmentMessageID(long messageID) {
+        governmentMessageID = messageID;
+    }
+    
 
 
 }

@@ -2,7 +2,6 @@ package commands;
 
 import message_handling.MessageHandler;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
-import org.w3c.dom.Text;
 import reaction_handling.ReactionHandler;
 import utility.*;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -47,7 +46,7 @@ public class StartGameCommand implements Command {
                 Utility.send( "Game channel successfully set!", curChannel);
 
                 long id = Utility.sendEmbed(constructInstructions(), gameChannel);
-                ReactionHandler.setReactionMessage(id);
+                ReactionHandler.setControllerMessageID(id);
                 addReactions(gameChannel, id);
 
             }
