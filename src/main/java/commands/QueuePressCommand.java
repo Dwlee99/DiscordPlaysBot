@@ -72,6 +72,9 @@ public class QueuePressCommand extends AbstractCommand {
         String curEmoji = event.getReactionEmote().getAsReactionCode();
         if(reactionMap.containsKey(curEmoji)) {
             queue.add(reactionMap.get(curEmoji));
+            synchronized (lock) {
+                lock.notifyAll();
+            }
         }
         event.retrieveMessage().queue((message -> {
             message.removeReaction(event.getReactionEmote().getAsReactionCode(), event.getUser()).queue();
