@@ -69,7 +69,7 @@ public class QueuePressCommand extends AbstractCommand {
 
     @Override
     void run(MessageReactionAddEvent event) {
-        String curEmoji = event.getReactionEmote().getAsReactionCode();
+        String curEmoji = ":" + event.getReactionEmote().getAsReactionCode(); //discord doesn't provide the first colon
         if(reactionMap.containsKey(curEmoji)) {
             queue.add(reactionMap.get(curEmoji));
             synchronized (lock) {
