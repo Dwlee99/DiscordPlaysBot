@@ -2,6 +2,7 @@ package gamepad;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -40,7 +41,6 @@ public class Gamepad{
         String[] keyPresses = key.toUpperCase().split("\\s");
         int[] keyCodes = new int[keyPresses.length];
 
-
         int curIndex = 0;
         KeyStroke curKeyStroke;
         int curKeyCode;
@@ -54,9 +54,18 @@ public class Gamepad{
             else{
                 curKeyCode = DUMMY_CODE;
             }
+
             keyCodes[curIndex] = curKeyCode;
+
             try {
-                robot.keyPress(curKeyCode);
+                if(curKeyCode == KeyEvent.VK_ALT) {
+                    robot.keyPress(curKeyCode);
+                    break;
+                }
+                else if(curKeyCode != KeyEvent.VK_WINDOWS) {
+                    robot.keyPress(curKeyCode);
+                }
+
             } catch (IllegalArgumentException ignore) {
             }
             curIndex++;
