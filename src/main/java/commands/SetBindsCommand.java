@@ -39,7 +39,7 @@ public class SetBindsCommand implements Command {
             if(optEmoji.isPresent()){
                 String emoji = optEmoji.get();
                 int index = line.indexOf(emoji);
-                String keyPress = line.substring(index + emoji.length());
+                String keyPress = line.substring(index + emoji.length() + 1);
                 keyPress = keyPress.trim();
                 reactionMap.put(emoji, keyPress);
             }
