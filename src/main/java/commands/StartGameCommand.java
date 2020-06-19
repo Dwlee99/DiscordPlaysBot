@@ -10,7 +10,10 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.LinkedHashMap;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A command that will initiate a game by setting the channel it is to be played in.
@@ -65,8 +68,26 @@ public class StartGameCommand implements Command {
 
     }
 
+    private static final Pattern CUSTOM_EMOJI = Pattern.compile(":\\w+:\\d+");
+
     private MessageEmbed constructInstructions(){
         EmbedBuilder eb = new CustomEmbedBuilder();
+        LinkedHashMap<String, String> reactions = QueuePressCommand.getReactionMap();
+
+        StringBuilder sb = new StringBuilder();
+
+        reactions.forEach((k,v) -> {
+            Matcher matcher = CUSTOM_EMOJI.matcher(k);
+            if(matcher.find()) {
+                sb.append("<").append(k).append(">");
+            }
+            else{
+                sb.append(k);
+            }
+            sb.append(" - ").append("`").append(v).append("`").append("\n");
+        });
+
+        eb.addField("List of Reactions", sb.toString(), true);
 
         return eb.build();
 
