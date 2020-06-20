@@ -68,20 +68,23 @@ public class SetGovernmentCommand extends AbstractCommand {
 
     private static final int LINE_LENGTH = 30;
 
+    private static final char BLACK_RECTANGLE = '\u25AC';
+    private static final String RADIO_BUTTON = "\uD83D\uDD18";
+
     protected static MessageEmbed constructGovernment(double democracyPercent) {
         EmbedBuilder eb = new CustomEmbedBuilder();
 
         char[] lineCreation = new char[LINE_LENGTH];
-        Arrays.fill(lineCreation, '\u25AC');
+        Arrays.fill(lineCreation, BLACK_RECTANGLE);
         String line = new String(lineCreation);
 
-        int dotLocation = (int) (democracyPercent * LINE_LENGTH);
+        int dotLocation = (int) Math.ceil(democracyPercent * LINE_LENGTH);
 
         if (dotLocation != LINE_LENGTH) {
-            line = line.substring(0, dotLocation) + "\uD83D\uDD18" + line.substring(dotLocation + 1);
+            line = line.substring(0, dotLocation) + RADIO_BUTTON + line.substring(dotLocation + 1);
         }
         else{
-            line = line.substring(0, dotLocation) + "\uD83D\uDD18";
+            line = line.substring(0, dotLocation) + RADIO_BUTTON;
         }
 
 
