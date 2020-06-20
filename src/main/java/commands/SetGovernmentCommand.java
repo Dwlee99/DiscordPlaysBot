@@ -70,15 +70,30 @@ public class SetGovernmentCommand extends AbstractCommand {
 
     private static final char BLACK_RECTANGLE = '\u25AC';
     private static final String RADIO_BUTTON = "\uD83D\uDD18";
+    private static final String RED_TRIANGLE = "\uD83D\uDEC6";
+    private static String initialLine;
+    private static String leftOffsetSpaces;
+    private static String rightOffsetSpaces;
+
+    static {
+        char[] lineCreation = new char[LINE_LENGTH];
+        Arrays.fill(lineCreation, BLACK_RECTANGLE);
+        initialLine = new String(lineCreation);
+
+        char[] offsetSpaces = new char[LINE_LENGTH / 2 + 1];
+        Arrays.fill(offsetSpaces, ' ');
+        leftOffsetSpaces = new String(offsetSpaces);
+
+        char[] offsetSpaces2 = new char[LINE_LENGTH / 2 - 1];
+        Arrays.fill(offsetSpaces2, ' ');
+        rightOffsetSpaces = new String(offsetSpaces2);
+    }
 
     protected static MessageEmbed constructGovernment(double democracyPercent) {
         EmbedBuilder eb = new CustomEmbedBuilder();
 
-        char[] lineCreation = new char[LINE_LENGTH];
-        Arrays.fill(lineCreation, BLACK_RECTANGLE);
-        String line = new String(lineCreation);
-
         int dotLocation = (int) Math.ceil(democracyPercent * LINE_LENGTH);
+        String line = initialLine;
 
         if (dotLocation != LINE_LENGTH) {
             line = line.substring(0, dotLocation) + RADIO_BUTTON + line.substring(dotLocation + 1);
@@ -87,10 +102,10 @@ public class SetGovernmentCommand extends AbstractCommand {
             line = line.substring(0, dotLocation) + RADIO_BUTTON;
         }
 
+        String boxedLine = "```" + line;
+        String lineWithMarker = boxedLine + "\n" + leftOffsetSpaces + RED_TRIANGLE + rightOffsetSpaces + "```";
 
-        String boxedLine = "`" + line + "`";
-
-        eb.addField("Democracy-meter", boxedLine, false);
+        eb.addField("Democracy-meter", lineWithMarker, false);
 
         return eb.build();
     }
