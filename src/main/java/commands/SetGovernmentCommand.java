@@ -72,8 +72,9 @@ public class SetGovernmentCommand extends AbstractCommand {
         EmbedBuilder eb = new CustomEmbedBuilder();
 
         char[] lineCreation = new char[LINE_LENGTH];
-        Arrays.fill(lineCreation, '-');
+        Arrays.fill(lineCreation, '\u25AC');
         String line = new String(lineCreation);
+
         int dotLocation = (int) (democracyPercent * LINE_LENGTH);
 
         if (dotLocation != LINE_LENGTH) {
