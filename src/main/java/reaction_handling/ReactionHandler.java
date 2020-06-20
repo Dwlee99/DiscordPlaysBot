@@ -25,7 +25,7 @@ public class ReactionHandler extends ListenerAdapter {
             CommandFactory.getCommandByType(QUEUE_PRESS).run(event);
         }
         if(event.getMessageIdLong() == governmentMessageID) {
-//            CommandFactory.getCommandByType(QUEUE_PRESS).run(event);
+            CommandFactory.getCommandByType(SET_GOVERNMENT).run(event);
         }
     }
 
@@ -35,6 +35,10 @@ public class ReactionHandler extends ListenerAdapter {
 
     public static void setGovernmentMessageID(long messageID) {
         governmentMessageID = messageID;
+    }
+
+    public static long getGovernmentMessageID(){
+        return governmentMessageID;
     }
     
 

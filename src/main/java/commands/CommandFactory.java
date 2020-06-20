@@ -22,6 +22,8 @@ public class CommandFactory {
      */
     public static Command getSetBindsCommand() { return SetBindsCommand.getInstance(); }
 
+    public static Command getSetGovernmentCommand() { return SetGovernmentCommand.getInstance(); }
+
     /**
      * @param cType the type of command to be found
      * @return the command associated with cType
@@ -34,8 +36,11 @@ public class CommandFactory {
                 return getStartGameCommand();
             case SET_BINDS:
                 return getSetBindsCommand();
+            case SET_GOVERNMENT:
+                return getSetGovernmentCommand();
         }
         return null;
     }
+
 
 }
