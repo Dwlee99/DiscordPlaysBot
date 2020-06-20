@@ -49,7 +49,7 @@ public class StartGameCommand implements Command {
                 MessageHandler.setGameChannel(gameChannel.getId());
                 Utility.send( "Game channel successfully set!", curChannel);
 
-                long governmentID = Utility.sendEmbed(constructGovernment(), gameChannel);
+                long governmentID = Utility.sendEmbed(SetGovernmentCommand.constructGovernment(0), gameChannel);
                 ReactionHandler.setGovernmentMessageID(governmentID);
                 addGovernmentReactions(gameChannel, governmentID);
 
@@ -68,19 +68,9 @@ public class StartGameCommand implements Command {
         }
     }
 
-    private static final int LINE_LENGTH = 30;
 
-    private MessageEmbed constructGovernment() {
-        EmbedBuilder eb = new CustomEmbedBuilder();
 
-        char[] line = new char[LINE_LENGTH];
-        Arrays.fill(line, '-');
-        String boxedLine = "`" + new String(line) + "`";
 
-        eb.addField("Democracy-meter", boxedLine, false);
-
-        return eb.build();
-    }
 
     @Override
     public void run(GenericMessageReactionEvent event) {
