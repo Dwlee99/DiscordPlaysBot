@@ -11,8 +11,8 @@ public class SetGovernmentCommand extends AbstractCommand {
     private static int anarchyVotes = 0;
     private static int democracyVotes = 0;
 
-    private final static String ANARCHY_EMOJI = "";
-    private final static String DEMOCRACY_EMOJI = "";
+    protected final static String ANARCHY_EMOJI = "\uD83D\uDD25";
+    protected final static String DEMOCRACY_EMOJI = "\uD83D\uDCDD";
 
     @Override
     void run(MessageReactionAddEvent event) {

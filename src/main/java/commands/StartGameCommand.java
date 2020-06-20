@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -48,9 +49,13 @@ public class StartGameCommand implements Command {
                 MessageHandler.setGameChannel(gameChannel.getId());
                 Utility.send( "Game channel successfully set!", curChannel);
 
-                long id = Utility.sendEmbed(constructInstructions(), gameChannel);
-                ReactionHandler.setControllerMessageID(id);
-                addReactions(gameChannel, id);
+                long governmentID = Utility.sendEmbed(constructGovernment(), gameChannel);
+                ReactionHandler.setGovernmentMessageID(governmentID);
+                addGovernmentReactions(gameChannel, governmentID);
+
+                long controllerID = Utility.sendEmbed(constructInstructions(), gameChannel);
+                ReactionHandler.setControllerMessageID(controllerID);
+                addControllerReactions(gameChannel, controllerID);
 
             }
             else{
@@ -61,6 +66,20 @@ public class StartGameCommand implements Command {
         catch(IndexOutOfBoundsException e){
             Utility.send("No game channel provided. (Ex: ``.startgame example-channel``)", curChannel);
         }
+    }
+
+    private static final int LINE_LENGTH = 30;
+
+    private MessageEmbed constructGovernment() {
+        EmbedBuilder eb = new CustomEmbedBuilder();
+
+        char[] line = new char[LINE_LENGTH];
+        Arrays.fill(line, '-');
+        String boxedLine = "`" + new String(line) + "`";
+
+        eb.addField("Democracy-meter", boxedLine, false);
+
+        return eb.build();
     }
 
     @Override
@@ -93,7 +112,15 @@ public class StartGameCommand implements Command {
 
     }
 
-    private void addReactions(TextChannel channel, long reactionID){
+
+    private void addGovernmentReactions(TextChannel channel, long reactionID) {
+        channel.retrieveMessageById(reactionID).queue(message -> {
+            message.addReaction(SetGovernmentCommand.DEMOCRACY_EMOJI).queue();
+            message.addReaction(SetGovernmentCommand.ANARCHY_EMOJI).queue();
+        });
+    }
+
+    private void addControllerReactions(TextChannel channel, long reactionID){
         channel.retrieveMessageById(reactionID).queue(message -> {
             for(String key : QueuePressCommand.getReactionMap().keySet()){
                 message.addReaction(key).queue();
