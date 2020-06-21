@@ -10,6 +10,8 @@ import reaction_handling.ReactionHandler;
 import utility.CustomEmbedBuilder;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SetGovernmentCommand extends AbstractCommand {
 
@@ -20,6 +22,9 @@ public class SetGovernmentCommand extends AbstractCommand {
 
     protected final static String ANARCHY_EMOJI = "\uD83D\uDD25";
     protected final static String DEMOCRACY_EMOJI = "\uD83D\uDCDD";
+
+    private final static String NO_VOTE = "";
+    private static String mostRecentVote = NO_VOTE;
 
     private SetGovernmentCommand(){}
 
@@ -58,8 +63,9 @@ public class SetGovernmentCommand extends AbstractCommand {
 
     }
 
-    private void updateGovernment(TextChannel channel) {
+    private static void updateGovernment(TextChannel channel) {
         isDemocracy = democracyVotes > anarchyVotes;
+        mostRecentVote = isDemocracy ? mostRecentVote : NO_VOTE;
         channel.retrieveMessageById(ReactionHandler.getGovernmentMessageID()).queue(message -> {
             double democracyPercent = democracyVotes / (democracyVotes + anarchyVotes);
             message.editMessage(constructGovernment(democracyPercent)).queue();
@@ -109,8 +115,24 @@ public class SetGovernmentCommand extends AbstractCommand {
         String lineWithMarker = boxedLine + "\n" + leftOffsetSpaces + RED_TRIANGLE + rightOffsetSpaces + "```";
 
         eb.addField("Democracy-meter", lineWithMarker, false);
+        eb.addField("Most Recent Vote", mostRecentVote.equals(NO_VOTE) ? "N/A" : mostRecentVote, false);
 
         return eb.build();
+    }
+
+    private static final Pattern CUSTOM_EMOJI = Pattern.compile(":\\w+:\\d+");
+
+    protected static void setMostRecentVote(String unicode, TextChannel textChannel){
+        Matcher matcher = CUSTOM_EMOJI.matcher(unicode);
+        String formatted;
+        if(matcher.find()) {
+            formatted = "<" + unicode + ">";
+        }
+        else{
+            formatted = unicode;
+        }
+        mostRecentVote = formatted;
+        updateGovernment(textChannel);
     }
 
     public static boolean isDemocracy() {

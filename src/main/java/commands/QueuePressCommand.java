@@ -110,9 +110,7 @@ public class QueuePressCommand extends AbstractCommand {
                 while (SetGovernmentCommand.isDemocracy()) {
                     try {
                         Thread.sleep(VOTE_DELAY);
-                    } catch (InterruptedException ignore) {
-
-                    }
+                    } catch (InterruptedException ignore) {}
                     if(SetGovernmentCommand.isDemocracy())
                         addAndNotify(getKeyPress(channel));
                 }
@@ -155,7 +153,11 @@ public class QueuePressCommand extends AbstractCommand {
             return "";
         }
 
-        return reactionMap.get(topReactions.get(random.nextInt(topReactions.size())));
+        int index = random.nextInt(topReactions.size());
+        String reaction = topReactions.get(index);
+
+        SetGovernmentCommand.setMostRecentVote(reaction, channel);
+        return reactionMap.get(reaction);
     }
 
     static LinkedHashMap<String, String> getReactionMap(){
