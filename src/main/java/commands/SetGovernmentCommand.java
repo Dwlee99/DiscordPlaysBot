@@ -58,12 +58,16 @@ public class SetGovernmentCommand extends AbstractCommand {
 
     }
 
-    private void updateGovernment(TextChannel channel){
+    private void updateGovernment(TextChannel channel) {
         isDemocracy = democracyVotes > anarchyVotes;
         channel.retrieveMessageById(ReactionHandler.getGovernmentMessageID()).queue(message -> {
             double democracyPercent = democracyVotes / (democracyVotes + anarchyVotes);
             message.editMessage(constructGovernment(democracyPercent)).queue();
         });
+        if (isDemocracy) {
+            QueuePressCommand.startDemocracy(channel);
+        }
+        System.out.println(isDemocracy);
     }
 
     private static final int LINE_LENGTH = 30;

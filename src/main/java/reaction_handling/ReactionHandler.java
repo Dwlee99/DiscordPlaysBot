@@ -33,6 +33,10 @@ public class ReactionHandler extends ListenerAdapter {
         controllerMessageID = messageID;
     }
 
+    public static long getControllerMessageID() {
+        return controllerMessageID;
+    }
+
     public static void setGovernmentMessageID(long messageID) {
         governmentMessageID = messageID;
     }
