@@ -81,7 +81,6 @@ public class QueuePressCommand extends AbstractCommand {
     void run(MessageReactionAddEvent event) {
         if(SetGovernmentCommand.isDemocracy()) { return; }
         String curEmoji = event.getReactionEmote().getAsReactionCode(); //discord doesn't provide the first colon
-        System.out.println(curEmoji);
         if(reactionMap.containsKey(curEmoji)) {
             addAndNotify(reactionMap.get(curEmoji));
         } else if(reactionMap.containsKey(":" + curEmoji)) {

@@ -67,7 +67,6 @@ public class SetGovernmentCommand extends AbstractCommand {
         if (isDemocracy) {
             QueuePressCommand.startDemocracy(channel);
         }
-        System.out.println(isDemocracy);
     }
 
     private static final int LINE_LENGTH = 30;
