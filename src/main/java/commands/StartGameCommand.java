@@ -54,6 +54,8 @@ public class StartGameCommand implements Command {
                 addGovernmentReactions(gameChannel, governmentID);
 
                 long controllerID = Utility.sendEmbed(constructInstructions(), gameChannel);
+                gameChannel.pinMessageById(controllerID).queue();
+
                 ReactionHandler.setControllerMessageID(controllerID);
                 addControllerReactions(gameChannel, controllerID);
 
