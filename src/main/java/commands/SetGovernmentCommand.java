@@ -75,7 +75,7 @@ public class SetGovernmentCommand extends AbstractCommand {
         }
     }
 
-    private static final int LINE_LENGTH = 30;
+    private static final int LINE_LENGTH = 20;
 
     private static final char BLACK_RECTANGLE = '\u25AC';
     private static final String RADIO_BUTTON = "\uD83D\uDD18";
