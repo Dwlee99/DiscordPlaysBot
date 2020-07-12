@@ -3,7 +3,7 @@ package commands;
 import com.vdurmont.emoji.EmojiParser;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
-import reaction_handling.ReactionHandler;
+
 import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.regex.Matcher;

@@ -1,11 +1,15 @@
-package reaction_handling;
+package handlers;
 
 import commands.CommandFactory;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+
 import static commands.CType.*;
+import static handlers.MessageHandler.*;
 
 public class ReactionHandler extends ListenerAdapter {
 
@@ -21,10 +25,15 @@ public class ReactionHandler extends ListenerAdapter {
     }
 
     public void handleMessageReaction(GenericMessageReactionEvent event) {
-        if(event.getMessageIdLong() == controllerMessageID) {
+        User user = event.getUser();
+
+        Guild guild = event.getGuild();
+        Member member = guild.getMember(user);
+
+        if(event.getMessageIdLong() == controllerMessageID && hasRole(member, PLAYER)) {
             CommandFactory.getCommandByType(QUEUE_PRESS).run(event);
         }
-        if(event.getMessageIdLong() == governmentMessageID) {
+        if(event.getMessageIdLong() == governmentMessageID && hasRole(member, HOST)) {
             CommandFactory.getCommandByType(SET_GOVERNMENT).run(event);
         }
     }

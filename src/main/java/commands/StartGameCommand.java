@@ -1,8 +1,8 @@
 package commands;
 
-import message_handling.MessageHandler;
+import handlers.MessageHandler;
 import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
-import reaction_handling.ReactionHandler;
+import handlers.ReactionHandler;
 import utility.*;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -10,7 +10,6 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.regex.Matcher;

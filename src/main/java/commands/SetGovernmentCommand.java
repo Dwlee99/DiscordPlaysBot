@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
-import reaction_handling.ReactionHandler;
+import handlers.ReactionHandler;
 import utility.CustomEmbedBuilder;
 
 import java.util.Arrays;

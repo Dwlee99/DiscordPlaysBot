@@ -1,21 +1,20 @@
-import message_handling.MessageHandler;
+import handlers.MessageHandler;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
-import reaction_handling.ReactionHandler;
+import handlers.ReactionHandler;
 import commands.QueuePressCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
-import javax.xml.ws.Holder;
 import java.util.List;
+
+import static handlers.MessageHandler.HOST;
+import static handlers.MessageHandler.PLAYER;
 
 
 public class Main extends ListenerAdapter {
-
-    private static final String PLAYER = "Discord Player";
-    private static final String HOST = "Game Host";
 
     public static void main(String[] args) throws javax.security.auth.login.LoginException, InterruptedException {
         JDABuilder builder = JDABuilder.createDefault(args[0]);
